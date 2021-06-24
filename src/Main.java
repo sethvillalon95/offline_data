@@ -43,9 +43,10 @@ public class Main {
         while (s.hasNextLine()){
             String test = s.nextLine();
 
-            if(test.contains("Error")){
+            if(test.contains("Info: Assembly")){
                 String[] array = test.split(" ");
-                say(array[0]+" the time is  "+array[1]);
+//                say(array[0]+" the time is  "+array[1]);
+                Offline tmp = new Offline(array[0],array[1]);
                 counter++;
 //                say(test);
             }
