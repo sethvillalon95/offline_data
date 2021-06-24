@@ -2,12 +2,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+    ArrayList<Offline> offline_list;
     byte bytes[]= null;
 
     public Main(){
+        offline_list = new ArrayList<>();
         try {
 //            parseFile("test.txt");
             scanFile("test.txt");
@@ -42,11 +45,22 @@ public class Main {
         Scanner s = new Scanner(f);
         while (s.hasNextLine()){
             String test = s.nextLine();
-
-            if(test.contains("Info: Assembly")){
-                String[] array = test.split(" ");
+            if(test.contains("Error ")){
+                String[] message = test.split(" ");
 //                say(array[0]+" the time is  "+array[1]);
-                Offline tmp = new Offline(array[0],array[1]);
+                String tmpdate = message[0];
+                String tmptime= message[1];
+//                Offline tmp = new Offline(message[0],message[1]);
+                while( s.hasNextLine()){
+                    test = s.nextLine();
+                    if(test.contains("OK")){
+                        break;
+                    }
+                }
+                message = test.split(" ");
+                Offline tmp = new Offline(tmpdate, tmptime, message[2]);
+                offline_list.add(tmp);
+
                 counter++;
 //                say(test);
             }
