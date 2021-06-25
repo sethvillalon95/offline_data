@@ -1,6 +1,6 @@
 public class Offline {
 
-    public  String deviceLabel;
+    public  String deviceLabel = "testdevice";
     public String time;
     public String duration;
     public String date;
@@ -31,10 +31,7 @@ public class Offline {
             min-=1;
             secs +=60;
         }
-        duration ="Duration: "+Integer.toString(hr)+":"+Integer.toString(min)+":"+Double.toString(secs);
-        if(secs>1){
-            Main.say(duration);
-        }
+        duration =Integer.toString(hr)+":"+Integer.toString(min)+":"+Double.toString(secs);
 
 
     }
