@@ -22,9 +22,6 @@ public class Main {
             e.printStackTrace();
         }
 
-//        for(byte b: bytes){
-//            say(b);
-//        }
     }
 
     private void parseFile(String filename) throws IOException {

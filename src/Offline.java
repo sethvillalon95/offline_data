@@ -30,16 +30,14 @@ public class Offline {
         if(secs<0){
             min-=1;
             secs +=60;
-
         }
-//        Main.say("The final is"+ final_t[2]);
         duration ="Duration: "+Integer.toString(hr)+":"+Integer.toString(min)+":"+Double.toString(secs);
-        Main.say(duration);
-//        Main.say(time +" was the time");
+        if(secs>1){
+            Main.say(duration);
+        }
 
 
     }
 
-//    public void
 
 }
