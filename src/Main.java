@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -58,9 +61,14 @@ public class Main {
                     }
                 }
                 message = test.split(" ");
-                Offline tmp = new Offline(tmpdate, tmptime, message[2]);
+                Offline tmp = new Offline(tmpdate, tmptime, message[1]);
+//                say(message[1]);
                 offline_list.add(tmp);
 
+
+//                Timestamp tsp = new Timestamp(10, 10,10,10,10,10,10);
+//                say(tsp);
+//                Instant ist = new Instant(10,10);
                 counter++;
 //                say(test);
             }
