@@ -11,6 +11,7 @@ import java.util.Scanner;
 public class Main {
     ArrayList<Offline> offline_list;
     byte bytes[]= null;
+    String deviceLabel = "";
 
     public Main(){
         offline_list = new ArrayList<>();
@@ -44,6 +45,8 @@ public class Main {
         double start = System.currentTimeMillis();
         File f = new File(filename);
         Scanner s = new Scanner(f);
+        say("What is the devicelabel?");
+        deviceLabel = new String(String.valueOf(System.in));
         while (s.hasNextLine()){
             String test = s.nextLine();
             if(test.contains("Error ")){
@@ -83,14 +86,8 @@ public class Main {
         for(Offline ofd:offline_list){
             String temp_data = ofd.deviceLabel+","+ofd.date+","+ofd.time+","+ofd.duration;
             say("data is "+ temp_data);
-            byte[] output_data = temp_data.getBytes();
-//            fos.write(output_data);
             fw.append(ofd.deviceLabel+","+ofd.date+","+ofd.time+","+ofd.duration+"\n");
-//            say(fw.append(ofd.deviceLabel));
-//            String [] record = temp_data.split(",");
-//            cs.writeNext(record);
-//            out.write(temp_data);
-//            out.newLine();
+
 
         }
 //        out.close();

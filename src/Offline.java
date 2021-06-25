@@ -1,6 +1,6 @@
 public class Offline {
 
-    public  String deviceLabel = "testdevice";
+    public  String deviceLabel = "testdevice1";
     public String time;
     public String duration;
     public String date;
@@ -35,6 +35,10 @@ public class Offline {
         duration =Integer.toString(hr)+":"+Integer.toString(min)+":"+Double.toString(secs);
 
 
+    }
+
+    public void setDeviceLabel(String dl){
+        deviceLabel = dl;
     }
 
 
