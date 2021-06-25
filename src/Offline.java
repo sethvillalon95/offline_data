@@ -4,6 +4,7 @@ public class Offline {
     public String time;
     public String duration;
     public String date;
+    public String venue = "test venue";
 
     private String initial_time;
     private String final_time;
@@ -35,6 +36,8 @@ public class Offline {
 
 
     }
+
+
 
 
 }

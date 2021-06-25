@@ -1,3 +1,5 @@
+import com.opencsv.CSVWriter;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
@@ -15,7 +17,7 @@ public class Main {
         try {
 //            parseFile("test.txt");
             scanFile("test.txt");
-            updateSheet("test1.csv");
+            updateSheet("test.csv");
 
         }catch (IOException e){
             e.printStackTrace();
@@ -73,24 +75,29 @@ public class Main {
     public void updateSheet(String fname) throws IOException {
         File f = new File(fname);
         FileOutputStream fos = new FileOutputStream(f);
-//        FileWriter fw = new FileWriter(f);
+        FileWriter fw = new FileWriter(f,true);
+        CSVWriter cs = new CSVWriter(fw);
+        BufferedWriter out = new BufferedWriter(fw);
 
 
         for(Offline ofd:offline_list){
-            String temp_data = ofd.deviceLabel+","+ofd.date+","+ofd.time+","+ofd.duration+"\n";
+            String temp_data = ofd.deviceLabel+","+ofd.date+","+ofd.time+","+ofd.duration;
             say("data is "+ temp_data);
             byte[] output_data = temp_data.getBytes();
-            fos.write(output_data);
-
-//            say("adding");
-//            fw.append(ofd.deviceLabel+","+ofd.date+","+ofd.time+","+ofd.duration+"\n");
+//            fos.write(output_data);
+            fw.append(ofd.deviceLabel+","+ofd.date+","+ofd.time+","+ofd.duration+"\n");
 //            say(fw.append(ofd.deviceLabel));
+//            String [] record = temp_data.split(",");
+//            cs.writeNext(record);
+//            out.write(temp_data);
+//            out.newLine();
 
         }
-        fos.close();
+//        out.close();
+//        cs.close();
 //        fw.flush();
-//        fw.close();
-//        CSVWriter cs = new CSVWriter (new FileWriter(f);
+        fw.close();
+//        fos.close();
     }
 
 
