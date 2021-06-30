@@ -1,6 +1,6 @@
 public class Offline {
 
-    public  String deviceLabel = "testdevice1";
+    public  String deviceLabel = "";
     public String time;
     public String duration;
     public String date;

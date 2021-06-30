@@ -13,12 +13,16 @@ public class Main {
     byte bytes[]= null;
     String deviceLabel = "";
 
-    public Main(){
+    public Main() throws IOException {
         offline_list = new ArrayList<>();
+        say("What is the device label:");
         try {
+            Scanner sc = new Scanner(System.in);
+            deviceLabel = sc.next();
+            sc.close();
 //            parseFile("test.txt");
             scanFile("test.txt");
-            updateSheet("test.csv");
+            updateSheet(deviceLabel+".csv");
 
         }catch (IOException e){
             e.printStackTrace();
@@ -45,8 +49,6 @@ public class Main {
         double start = System.currentTimeMillis();
         File f = new File(filename);
         Scanner s = new Scanner(f);
-        say("What is the devicelabel?");
-        deviceLabel = new String(String.valueOf(System.in));
         while (s.hasNextLine()){
             String test = s.nextLine();
             if(test.contains("Error ")){
@@ -63,6 +65,7 @@ public class Main {
                 }
                 message = test.split(" ");
                 Offline tmp = new Offline(tmpdate, tmptime, message[1]);
+                tmp.setDeviceLabel(deviceLabel);
                 offline_list.add(tmp);
                 counter++;
 
@@ -85,7 +88,7 @@ public class Main {
 
         for(Offline ofd:offline_list){
             String temp_data = ofd.deviceLabel+","+ofd.date+","+ofd.time+","+ofd.duration;
-            say("data is "+ temp_data);
+//            say("data is "+ temp_data);
             fw.append(ofd.deviceLabel+","+ofd.date+","+ofd.time+","+ofd.duration+"\n");
 
 
@@ -105,7 +108,7 @@ public class Main {
 
 
 
-    public static void main(String args[]){
+    public static void main(String args[]) throws IOException {
         new Main();
     }
 
