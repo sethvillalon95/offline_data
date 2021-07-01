@@ -13,21 +13,18 @@ public class Main {
     byte bytes[]= null;
     String deviceLabel = "";
 
-    public Main(String file) throws IOException {
+    public Main() throws IOException {
         offline_list = new ArrayList<>();
         say("What is the device label:");
         try {
             Scanner sc = new Scanner(System.in);
             deviceLabel = sc.nextLine();
+            say("Drag the file here:");
+            String file = sc.nextLine();
             sc.close();
-//            parseFile("test.txt");
-//            String outputfile = deviceLabel+".csv";
-//            say(outputfile);
             scanFile(file);
             updateSheet(deviceLabel+".csv");
-//            updateSheet(outputfile);
-
-
+            say("Thank you please come again! Please don't to format time.");
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -57,10 +54,8 @@ public class Main {
             String test = s.nextLine();
             if(test.contains("Error ")){
                 String[] message = test.split(" ");
-//                say(array[0]+" the time is  "+array[1]);
                 String tmpdate = message[0];
                 String tmptime= message[1];
-//                Offline tmp = new Offline(message[0],message[1]);
                 while( s.hasNextLine()){
                     test = s.nextLine();
                     if(test.contains("OK")){
@@ -86,25 +81,14 @@ public class Main {
         File f = new File(fname);
         FileOutputStream fos = new FileOutputStream(f);
         FileWriter fw = new FileWriter(f,true);
-        CSVWriter cs = new CSVWriter(fw);
-        BufferedWriter out = new BufferedWriter(fw);
-
 
         for(Offline ofd:offline_list){
             String temp_data = ofd.deviceLabel+","+ofd.date+","+ofd.time+","+ofd.duration;
-//            say("data is "+ temp_data);
             fw.append(ofd.deviceLabel+","+ofd.date+","+ofd.time+","+ofd.duration+"\n");
-
-
         }
-//        out.close();
-//        cs.close();
-//        fw.flush();
         fw.close();
-//        fos.close();
+
     }
-
-
     public static void say(Object o){
         System.out.println(o);
     }
@@ -113,7 +97,7 @@ public class Main {
 
 
     public static void main(String args[]) throws IOException {
-        new Main(args[0]);
+        new Main();
     }
 
 }
