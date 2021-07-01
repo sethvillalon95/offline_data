@@ -13,16 +13,20 @@ public class Main {
     byte bytes[]= null;
     String deviceLabel = "";
 
-    public Main() throws IOException {
+    public Main(String file) throws IOException {
         offline_list = new ArrayList<>();
         say("What is the device label:");
         try {
             Scanner sc = new Scanner(System.in);
-            deviceLabel = sc.next();
+            deviceLabel = sc.nextLine();
             sc.close();
 //            parseFile("test.txt");
-            scanFile("test.txt");
+//            String outputfile = deviceLabel+".csv";
+//            say(outputfile);
+            scanFile(file);
             updateSheet(deviceLabel+".csv");
+//            updateSheet(outputfile);
+
 
         }catch (IOException e){
             e.printStackTrace();
@@ -32,7 +36,7 @@ public class Main {
 
     private void parseFile(String filename) throws IOException {
         double start = System.currentTimeMillis();
-        say("The file is "+ filename);
+//        say("The file is "+ filename);
         FileInputStream fis = new FileInputStream(filename);
         bytes = fis.readAllBytes();
         fis.close();
@@ -109,7 +113,7 @@ public class Main {
 
 
     public static void main(String args[]) throws IOException {
-        new Main();
+        new Main(args[0]);
     }
 
 }
