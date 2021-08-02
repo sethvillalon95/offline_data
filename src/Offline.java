@@ -24,9 +24,20 @@ public class Offline {
     public void calculateDuration(){
         String[] initial_t = initial_time.split(":");
         String[] final_t = final_time.split(":");
+        int inMin =Integer.parseInt(initial_t[1]);
+        int fMin = Integer.parseInt(final_t[1]);
+        int inHr = Integer.parseInt(initial_t[0]);
+        int fHr= Integer.parseInt(final_t[0]);
 
-        int hr = Integer.parseInt(final_t[0])-Integer.parseInt(initial_t[0]);
-        int min = Integer.parseInt(final_t[1])-Integer.parseInt(initial_t[1]);
+        if(inMin>fMin){
+            fHr--;
+            fMin+=60;
+        }
+
+        int hr = fHr-inHr;
+        int min = fMin-inMin;
+
+
         double secs = Double.parseDouble(final_t[2])- Double.parseDouble(initial_t[2]);
         if(secs<0){
             min-=1;

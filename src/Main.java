@@ -19,12 +19,14 @@ public class Main {
         try {
             Scanner sc = new Scanner(System.in);
             deviceLabel = sc.nextLine();
-            say("Drag the file here:");
-            String file = sc.nextLine();
-            sc.close();
-            scanFile(file);
+//            say("Drag the file here:");
+//            String file = sc.nextLine();
+//            sc.close();
+//            scanFile(file);
+            scanFile("https-debug-2.txt");
             updateSheet(deviceLabel+".csv");
             say("Thank you please come again! Please don't to format time.");
+            sc.close();
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -56,17 +58,23 @@ public class Main {
                 String[] message = test.split(" ");
                 String tmpdate = message[0];
                 String tmptime= message[1];
-                while( s.hasNextLine()){
-                    test = s.nextLine();
-                    if(test.contains("OK")){
-                        break;
+                String[] tempt = tmptime.split(":");
+                int hrOf = Integer.parseInt(tempt[0]);
+                if(hrOf>15 && hrOf<23){
+                    while( s.hasNextLine()){
+                        test = s.nextLine();
+                        if(test.contains("OK")){
+                            break;
+                        }
                     }
+                    message = test.split(" ");
+                    Offline tmp = new Offline(tmpdate, tmptime, message[1]);
+                    tmp.setDeviceLabel(deviceLabel);
+                    offline_list.add(tmp);
+                    counter++;
                 }
-                message = test.split(" ");
-                Offline tmp = new Offline(tmpdate, tmptime, message[1]);
-                tmp.setDeviceLabel(deviceLabel);
-                offline_list.add(tmp);
-                counter++;
+
+
 
             }
         }
