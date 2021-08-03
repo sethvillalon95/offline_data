@@ -12,20 +12,51 @@ public class Main {
     ArrayList<Offline> offline_list;
     byte bytes[]= null;
     String deviceLabel = "";
+    String venue="";
 
     public Main() throws IOException {
         offline_list = new ArrayList<>();
-        say("What is the device label:");
+
         try {
             Scanner sc = new Scanner(System.in);
+            say("What is the device venue (please enter a number):");
+            say("[1] Islands of Polynesia");
+            say("[2] Luau");
+            say("[3] Gateway Buffet");
+            say("[4] Ha Breath of Life");
+//            say("");
+            int choice = sc.nextInt();
+            say("choice is: " + choice);
+            switch (choice){
+                case 1:
+                    venue = "Islands of Polynesia";
+                    break;
+                case 2:
+                    venue = "Luau";
+                    break;
+                case 3:
+                    venue = "Gateway";
+                    break;
+                case 4:
+                    venue = "Ha Breath Of Life";
+                    break;
+                default:
+                    venue = null;
+            }
+
+            System.out.println("What is the device label?");
+            sc.nextLine();
             deviceLabel = sc.nextLine();
+
+            say("deviceLabel is " + deviceLabel);
 //            say("Drag the file here:");
 //            String file = sc.nextLine();
+//            file.replaceAll(replace the back space);
 //            sc.close();
 //            scanFile(file);
-            scanFile("https-debug-2.txt");
+            scanFile("https-debug.txt");
             updateSheet(deviceLabel+".csv");
-            say("Thank you please come again! Please don't to format time.");
+            say("Thank you please come again! Please don't forget to format time.");
             sc.close();
         }catch (IOException e){
             e.printStackTrace();
@@ -70,6 +101,7 @@ public class Main {
                     message = test.split(" ");
                     Offline tmp = new Offline(tmpdate, tmptime, message[1]);
                     tmp.setDeviceLabel(deviceLabel);
+                    tmp.setVenue(venue);
                     offline_list.add(tmp);
                     counter++;
                 }
@@ -89,10 +121,13 @@ public class Main {
         File f = new File(fname);
         FileOutputStream fos = new FileOutputStream(f);
         FileWriter fw = new FileWriter(f,true);
+        fw.append("Device Label, Date, Time, Duration"+"\n");
 
         for(Offline ofd:offline_list){
-            String temp_data = ofd.deviceLabel+","+ofd.date+","+ofd.time+","+ofd.duration;
-            fw.append(ofd.deviceLabel+","+ofd.date+","+ofd.time+","+ofd.duration+"\n");
+            String temp_data = ofd.deviceLabel+","+ofd.date+","+ofd.time+","+ofd.duration+"\n";
+            if(ofd.isWithin())
+                fw.append(temp_data);
+//            fw.append(ofd.deviceLabel+","+ofd.date+","+ofd.time+","+ofd.duration+"\n");
         }
         fw.close();
 
