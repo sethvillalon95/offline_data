@@ -29,18 +29,28 @@ public class Offline {
         int fMin = Integer.parseInt(final_t[1]);
         int inHr = Integer.parseInt(initial_t[0]);
         int fHr= Integer.parseInt(final_t[0]);
+        double inSec =  Double.parseDouble(initial_t[2]);
+        double fSec = Double.parseDouble(final_t[2]);
 
+        if(inSec>fSec){
+            fMin--;
+            fSec+=60;
+
+        }
         if(inMin>fMin){
             fHr--;
             fMin+=60;
         }
 
-        int hr = fHr-inHr;
+        int hr = Math.abs(fHr-inHr);
         int min = fMin-inMin;
+
         hour = inHr;
 
 
-        double secs = Double.parseDouble(final_t[2])- Double.parseDouble(initial_t[2]);
+
+
+        double secs = fSec-inSec;
         if(secs<0){
             min-=1;
             secs +=60;
