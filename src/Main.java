@@ -55,7 +55,6 @@ public class Main {
 //            sc.close();
 //            scanFile(file);
             scanFile("https-debug.txt");
-            updateSheet(deviceLabel+".csv");
             say("Thank you please come again! Please don't forget to format time.");
             sc.close();
         }catch (IOException e){
@@ -78,7 +77,7 @@ public class Main {
 
     }
 
-    private void scanFile(String filename) throws FileNotFoundException {
+    private void scanFile(String filename) throws IOException {
         int counter = 0;
         double start = System.currentTimeMillis();
         File f = new File(filename);
@@ -111,6 +110,7 @@ public class Main {
             }
         }
         s.close();
+        updateSheet(deviceLabel+".csv");
         double end = System.currentTimeMillis();
         double total = (end-start)/1000;
         say("Finished with "+ " "+total+" "+ "the number of times is "+counter);
