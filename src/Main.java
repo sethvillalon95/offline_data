@@ -54,7 +54,8 @@ public class Main {
 //            file.replaceAll(replace the back space);
 //            sc.close();
 //            scanFile(file);
-            scanFile("https-debug.txt");
+//            scanFile("https-debug.txt");
+            countOK("https-debug.txt");
             say("Thank you please come again! Please don't forget to format time.");
             sc.close();
         }catch (IOException e){
@@ -130,6 +131,26 @@ public class Main {
 //            fw.append(ofd.deviceLabel+","+ofd.date+","+ofd.time+","+ofd.duration+"\n");
         }
         fw.close();
+
+    }
+
+    private void countOK(String filename) throws IOException {
+        int counter = 0;
+        double start = System.currentTimeMillis();
+        File f = new File(filename);
+        Scanner s = new Scanner(f);
+        while (s.hasNextLine()){
+            String test = s.nextLine();
+            if(test.contains("200 OK") && test.contains("2021-08-02")){
+                say(test);
+                String[] message = test.split(" ");
+                counter++;
+            }
+        }
+        s.close();
+        double end = System.currentTimeMillis();
+        double total = (end-start)/1000;
+        say("Finished with "+ " "+total+" "+ "the number of times is "+counter);
 
     }
     public static void say(Object o){
