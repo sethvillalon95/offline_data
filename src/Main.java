@@ -55,7 +55,8 @@ public class Main {
 //            sc.close();
 //            scanFile(file);
 //            scanFile("https-debug.txt");
-            countOK("https-debug.txt");
+//            countOK("https-debug.txt");
+            compReponse("https-debug.txt");
             say("Thank you please come again! Please don't forget to format time.");
             sc.close();
         }catch (IOException e){
@@ -85,7 +86,7 @@ public class Main {
         Scanner s = new Scanner(f);
         while (s.hasNextLine()){
             String test = s.nextLine();
-            if(test.contains("Error ")){
+            if(test.contains("Error ") && test.contains("2021-08-26 16")){
                 String[] message = test.split(" ");
                 String tmpdate = message[0];
                 String tmptime= message[1];
@@ -141,13 +142,53 @@ public class Main {
         Scanner s = new Scanner(f);
         while (s.hasNextLine()){
             String test = s.nextLine();
-            if(test.contains("200 OK") && test.contains("2021-08-02")){
+            if(test.contains("200 OK") && test.contains("2021-08-09")){
                 say(test);
                 String[] message = test.split(" ");
                 counter++;
             }
         }
         s.close();
+        double end = System.currentTimeMillis();
+        double total = (end-start)/1000;
+        say("Finished with "+ " "+total+" "+ "the number of times is "+counter);
+
+    }
+
+    private void compReponse(String filename) throws IOException {
+        int counter = 0;
+        double start = System.currentTimeMillis();
+        File f = new File(filename);
+        Scanner s = new Scanner(f);
+        while (s.hasNextLine()){
+            String test = s.nextLine();
+            if(test.contains("Sending request: POST ") && test.contains("2021-08-26 16")){
+                String[] message = test.split(" ");
+                String tmpdate = message[0];
+                String tmptime= message[1];
+                String[] tempt = tmptime.split(":");
+                int hrOf = Integer.parseInt(tempt[0]);
+                if(hrOf>15 && hrOf<23){
+                    while( s.hasNextLine()){
+                        test = s.nextLine();
+                        if(test.contains("OK")){
+                            break;
+                        }
+                    }
+                    message = test.split(" ");
+                    Offline tmp = new Offline(tmpdate, tmptime, message[1]);
+                    tmp.setDeviceLabel(deviceLabel);
+                    tmp.setVenue(venue);
+                    offline_list.add(tmp);
+                    counter++;
+                }
+
+
+
+            }
+        }
+        s.close();
+        updateSheet(deviceLabel+".csv");
         double end = System.currentTimeMillis();
         double total = (end-start)/1000;
         say("Finished with "+ " "+total+" "+ "the number of times is "+counter);
